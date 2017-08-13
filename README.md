@@ -16,7 +16,7 @@ Clone esta aplicação, depois execute o seu empacotamento via Maven:
 
 ```
 > git clone https://github.com/ag-ifpb/crypting.git
-  Cloning into 'crypting'... 
+  Cloning into 'crypting'...
   remote: Counting objects: 47, done.
   remote: Compressing objects: 100% (37/37), done.
   remote: Total 47 (delta 5), reused 45 (delta 5), pack-reused 0
@@ -31,7 +31,7 @@ Clone esta aplicação, depois execute o seu empacotamento via Maven:
   [INFO] ------------------------------------------------------------------------
   [INFO] Building IFPB EncryptDecrypt Toy 0.0.1-SNAPSHOT
   [INFO] ------------------------------------------------------------------------
-  [INFO] 
+  [INFO]
   ...
 ```
 
@@ -85,9 +85,35 @@ O resultado:
 
 ## Exemplo (decriptografando)
 
-//TODO
+Para decriptografar o texto cifrado na seção anterior adote as mesmas informações de estratégia e chaves
+modificando apenas o texto de entrada que agora será 'mX+BxwwjqS71i6iB6c/+S/kVCSgq+47hf45OsgNulUl='.
+Veja abaixo como fica o commando
+
+```
+> java -jar target/app.jar -dec -type ddc -ks 123456,654321,19 mX+BxwwjqS71i6iB6c/+S/kVCSgq+47hf45OsgNulUl=
+```
+
+O resultado:
+```
+> java -jar target/app.jar -dec -type ddc -ks 123456,654321,19 mX+BxwwjqS71i6iB6c/+S/kVCSgq+47hf45OsgNulUl=
+  Texto encriptado: mX+BxwwjqS71i6iB6c/+S/kVCSgq+47hf45OsgNulUl=
+  Estratégia selecionada: DDC
+      --------------------------
+      tipo#2: C
+      chave#2: 19
+      result#2: tE+IeddqxZ71p6pI6j/+Z/rCJZnx+47om45VznUbsBs=
+      -------------------------
+      tipo#1: D
+      chave#1: 654321
+      result#1: XqjIKmzoLxoCgLj+w6ePcw==
+      -------------------------
+      tipo#0: D
+      chave#0: 123456
+      result#0: Maria Amélia
+      -------------------------
+Texto decriptografado: Maria Amélia
+```
 
 ## Referências
 
 //TODO
-

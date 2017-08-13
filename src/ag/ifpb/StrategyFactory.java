@@ -7,7 +7,7 @@ package ag.ifpb;
  * @author arigarcia
  *
  */
-public interface EncrypterFactory {
+public interface StrategyFactory {
 	
 	/**
 	 * Recupera um objeto de criptografia baseado
@@ -16,6 +16,6 @@ public interface EncrypterFactory {
 	 * @param type
 	 * @return
 	 */
-	EncryptionStrategy strategy(EncriptionType type);
+	Strategy strategy(EncriptionType type);
 	
 }

@@ -10,16 +10,19 @@ import ag.ifpb.impl.DESCipher;
  * @author arigarcia
  *
  */
-public abstract class EncryptionStrategy {
+public abstract class Strategy {
 	protected final CesarCipher cesarCipher;
 	protected final DESCipher desCipher;
 	
 	protected abstract String encrOne(int key, String text);
 	protected abstract String encrTwo(int key, String text);
 	protected abstract String encrThree(int key, String text);
+	protected abstract String decrOne(int key, String text);
+	protected abstract String decrTwo(int key, String text);
+	protected abstract String decrThree(int key, String text);
 	protected abstract EncriptionType type();
 	
-	public EncryptionStrategy(CesarCipher cesarCipher, DESCipher desCipher) {
+	public Strategy(CesarCipher cesarCipher, DESCipher desCipher) {
 		this.cesarCipher = cesarCipher;
 		this.desCipher = desCipher;
 	}
@@ -41,5 +44,24 @@ public abstract class EncryptionStrategy {
 		System.out.println("      result#2: " + encrpted2);
 		System.out.println("      -------------------------");
 		return encrpted2;
+	}
+	
+	public String decrypt(int[] key, String text){
+		//
+		if (key.length != 3) {
+			throw new IllegalArgumentException("Devem haver 3 chaves de acordo com sua estratégia");
+		}
+		//
+		System.out.println("      --------------------------");
+		String decrpted2 = decrThree(key[2], text);
+		System.out.println("      result#2: " + decrpted2);
+		System.out.println("      -------------------------");
+		String decrpted1 = decrTwo(key[1], decrpted2);
+		System.out.println("      result#1: " + decrpted1);
+		System.out.println("      -------------------------");
+		String decrpted0 = decrOne(key[0], decrpted1);
+		System.out.println("      result#0: " + decrpted0);
+		System.out.println("      -------------------------");
+		return decrpted0;
 	}
 }

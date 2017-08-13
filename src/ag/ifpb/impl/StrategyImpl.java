@@ -1,8 +1,8 @@
 package ag.ifpb.impl;
 
-import ag.ifpb.EncryptionStrategy;
+import ag.ifpb.Strategy;
 
-public abstract class EncryptionStrategyImpl extends EncryptionStrategy{
+public abstract class StrategyImpl extends Strategy{
 	
 	private int typeByPosition(int index){
 		String t = type().toString();
@@ -23,6 +23,16 @@ public abstract class EncryptionStrategyImpl extends EncryptionStrategy{
 			return desCipher.encript(key, text);
 		}
 	}
+	
+	private String decByPosition(int index, int key, String text){
+		if (typeByPosition(index) == 0){
+			System.out.println("      chave#" + index + ": " + key);
+			return cesarCipher.decript(key, text);
+		} else {
+			System.out.println("      chave#" + index + ": " + Integer.toHexString(key));
+			return desCipher.decript(key, text);
+		}
+	}
 
 	@Override
 	protected String encrOne(int key, String text) {
@@ -39,7 +49,22 @@ public abstract class EncryptionStrategyImpl extends EncryptionStrategy{
 		return encByPosition(2, key, text);
 	}
 	
-	public EncryptionStrategyImpl(CesarCipher cesarCipher, DESCipher desCipher) {
+	@Override
+	protected String decrOne(int key, String text) {
+		return decByPosition(0, key, text);
+	}
+	
+	@Override
+	protected String decrTwo(int key, String text) {
+		return decByPosition(1, key, text);
+	}
+	
+	@Override
+	protected String decrThree(int key, String text) {
+		return decByPosition(2, key, text);
+	}
+
+	public StrategyImpl(CesarCipher cesarCipher, DESCipher desCipher) {
 		super(cesarCipher, desCipher);
 	}	
 
