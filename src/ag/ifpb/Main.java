@@ -9,7 +9,7 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-import ag.ifpb.impl.EncrypterFactoryImpl;
+import ag.ifpb.impl.StrategyFactoryImpl;
 
 public class Main {
 	
@@ -54,15 +54,19 @@ public class Main {
 	private static void execEncryptation(String type, int[] ks, String text) {
 		System.out.println("Encriptando: " + text);
 		//
-		EncrypterFactory encrypterFactory = new EncrypterFactoryImpl();
-		EncryptionStrategy strategy = encrypterFactory.strategy(EncriptionType.convert(type));
+		StrategyFactory encrypterFactory = new StrategyFactoryImpl();
+		Strategy strategy = encrypterFactory.strategy(EncriptionType.convert(type));
 		//
 		System.out.println("Texto criptografado: " + strategy.encrypt(ks, text));
 	}
 
 	private static void execDecryptation(String type, int[] ks, String text) {
-		// TODO Auto-generated method stub
-		System.out.println("decriptando: " + text);
+		System.out.println("Texto encriptado: " + text);
+		//
+		StrategyFactory encrypterFactory = new StrategyFactoryImpl();
+		Strategy strategy = encrypterFactory.strategy(EncriptionType.convert(type));
+		//
+		System.out.println("Texto decriptografado: " + strategy.decrypt(ks, text));
 	}
 
 	public static void main(String[] args) throws ParseException {

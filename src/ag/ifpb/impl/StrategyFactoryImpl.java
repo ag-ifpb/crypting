@@ -1,19 +1,19 @@
 package ag.ifpb.impl;
 
 import ag.ifpb.EncriptionType;
-import ag.ifpb.EncrypterFactory;
-import ag.ifpb.EncryptionStrategy;
+import ag.ifpb.StrategyFactory;
+import ag.ifpb.Strategy;
 
-public class EncrypterFactoryImpl implements EncrypterFactory {
+public class StrategyFactoryImpl implements StrategyFactory {
 
 	@Override
-	public EncryptionStrategy strategy(final EncriptionType type) {
+	public Strategy strategy(final EncriptionType type) {
 		//
 		System.out.println("Estratégia selecionada: " + type);
 		//
 		CesarCipher cesarCipher = new CesarCipher();
 		DESCipher desCipher = new DESCipher();
-		EncryptionStrategy strategy = new EncryptionStrategyImpl(cesarCipher, desCipher) {
+		Strategy strategy = new StrategyImpl(cesarCipher, desCipher) {
 			@Override
 			protected EncriptionType type() {
 				return type;
