@@ -1,16 +1,16 @@
-package ag.ifpb;
+package ag.ifpb.service;
 
 /**
- * Fábrica de Encriptadores que se baseiam em um tipo 
+ * Fábrica de Decriptadores que se baseiam em um tipo 
  * de estratégia de criptografia
  * 
  * @author arigarcia
  *
  */
-public interface StrategyFactory {
+public interface DecrypterFactory {
 	
 	/**
-	 * Recupera um objeto de criptografia baseado
+	 * Recupera um objeto de decriptografia baseado
 	 * na estratégia type
 	 * 
 	 * @param type

@@ -6,7 +6,7 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
-import ag.ifpb.impl.CesarCipher;
+import ag.ifpb.service.impl.CesarCipher;
 
 
 public class CesarCrypter {
@@ -22,4 +22,5 @@ public class CesarCrypter {
 		System.out.println("Texto criptografado: " + encrypted);
 		System.out.println("Texto descriptografado: " + decrypted);
 	}
+	
 }

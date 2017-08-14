@@ -1,4 +1,4 @@
-package ag.ifpb;
+package ag.ifpb.service;
 
 /**
  * Tipos de estratégias de criptografia

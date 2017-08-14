@@ -1,5 +1,6 @@
-package ag.ifpb.impl;
+package ag.ifpb.service.impl;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -16,7 +17,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 
-import ag.ifpb.AbstractCipher;
+import ag.ifpb.service.AbstractCipher;
 
 public class DESCipher implements AbstractCipher {
 	
@@ -51,7 +52,7 @@ public class DESCipher implements AbstractCipher {
 	}
 
 	private static String dec(SecretKey key, String encriptedText) throws NoSuchAlgorithmException, 
-		NoSuchPaddingException, IllegalBlockSizeException, 
+		NoSuchPaddingException, IllegalBlockSizeException, IllegalArgumentException,
 		BadPaddingException, InvalidKeyException{
 		//
 		Cipher cipher = Cipher.getInstance(key.getAlgorithm());
@@ -66,7 +67,7 @@ public class DESCipher implements AbstractCipher {
 	}
 
 	@Override
-	public String encript(int key, String text) {
+	public String encript(int key, String text) throws EncryptionException {
 		//
 		SecretKey secretKey;
 		try {
@@ -77,12 +78,12 @@ public class DESCipher implements AbstractCipher {
 		} catch (InvalidKeyException | NoSuchAlgorithmException | 
 				InvalidKeySpecException | NoSuchPaddingException | 
 				IllegalBlockSizeException | BadPaddingException e) {
-			return "Falha na criptografia. Causa: " + e.getMessage();
+			throw new EncryptionException("Falha na criptografia. Causa: " + e.getMessage());
 		}
 	}
 
 	@Override
-	public String decript(int key, String encriptedText) {
+	public String decript(int key, String encriptedText) throws DecryptionException {
 		//
 		SecretKey secretKey;
 		try {
@@ -93,8 +94,8 @@ public class DESCipher implements AbstractCipher {
 			return encrypted;
 		} catch (InvalidKeyException | NoSuchAlgorithmException | 
 				InvalidKeySpecException | NoSuchPaddingException | 
-				IllegalBlockSizeException | BadPaddingException e) {
-			return "Falha na descriptografia. Causa: " + e.getMessage();
+				IllegalBlockSizeException | BadPaddingException | IllegalArgumentException e) {
+			throw new DecryptionException("Falha na descriptografia. Causa: " + e.getMessage());
 		}
 	}
 
