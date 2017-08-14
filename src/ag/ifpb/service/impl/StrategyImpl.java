@@ -1,6 +1,6 @@
-package ag.ifpb.impl;
+package ag.ifpb.service.impl;
 
-import ag.ifpb.Strategy;
+import ag.ifpb.service.Strategy;
 
 public abstract class StrategyImpl extends Strategy{
 	
@@ -14,7 +14,7 @@ public abstract class StrategyImpl extends Strategy{
 		 }
 	}
 	
-	private String encByPosition(int index, int key, String text){
+	private String encByPosition(int index, int key, String text) throws EncryptionException{
 		if (typeByPosition(index) == 0){
 			System.out.println("      chave#" + index + ": " + key);
 			return cesarCipher.encript(key, text);
@@ -24,7 +24,7 @@ public abstract class StrategyImpl extends Strategy{
 		}
 	}
 	
-	private String decByPosition(int index, int key, String text){
+	private String decByPosition(int index, int key, String text) throws DecryptionException{
 		if (typeByPosition(index) == 0){
 			System.out.println("      chave#" + index + ": " + key);
 			return cesarCipher.decript(key, text);
@@ -35,32 +35,32 @@ public abstract class StrategyImpl extends Strategy{
 	}
 
 	@Override
-	protected String encrOne(int key, String text) {
+	protected String encrOne(int key, String text) throws EncryptionException {
 		return encByPosition(0, key, text);
 	}
 
 	@Override
-	protected String encrTwo(int key, String text) {
+	protected String encrTwo(int key, String text) throws EncryptionException {
 		return encByPosition(1, key, text);
 	}
 
 	@Override
-	protected String encrThree(int key, String text) {
+	protected String encrThree(int key, String text) throws EncryptionException {
 		return encByPosition(2, key, text);
 	}
 	
 	@Override
-	protected String decrOne(int key, String text) {
+	protected String decrOne(int key, String text) throws DecryptionException {
 		return decByPosition(0, key, text);
 	}
 	
 	@Override
-	protected String decrTwo(int key, String text) {
+	protected String decrTwo(int key, String text) throws DecryptionException {
 		return decByPosition(1, key, text);
 	}
 	
 	@Override
-	protected String decrThree(int key, String text) {
+	protected String decrThree(int key, String text) throws DecryptionException {
 		return decByPosition(2, key, text);
 	}
 

@@ -1,8 +1,8 @@
-package ag.ifpb.impl;
+package ag.ifpb.service.impl;
 
-import ag.ifpb.EncriptionType;
-import ag.ifpb.StrategyFactory;
-import ag.ifpb.Strategy;
+import ag.ifpb.service.EncriptionType;
+import ag.ifpb.service.Strategy;
+import ag.ifpb.service.StrategyFactory;
 
 public class StrategyFactoryImpl implements StrategyFactory {
 

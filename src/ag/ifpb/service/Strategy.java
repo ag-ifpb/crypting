@@ -1,7 +1,9 @@
-package ag.ifpb;
+package ag.ifpb.service;
 
-import ag.ifpb.impl.CesarCipher;
-import ag.ifpb.impl.DESCipher;
+import ag.ifpb.service.impl.CesarCipher;
+import ag.ifpb.service.impl.DESCipher;
+import ag.ifpb.service.impl.DecryptionException;
+import ag.ifpb.service.impl.EncryptionException;
 
 /**
  * Funciona como um encriptador de acordo com uma 
@@ -14,12 +16,12 @@ public abstract class Strategy {
 	protected final CesarCipher cesarCipher;
 	protected final DESCipher desCipher;
 	
-	protected abstract String encrOne(int key, String text);
-	protected abstract String encrTwo(int key, String text);
-	protected abstract String encrThree(int key, String text);
-	protected abstract String decrOne(int key, String text);
-	protected abstract String decrTwo(int key, String text);
-	protected abstract String decrThree(int key, String text);
+	protected abstract String encrOne(int key, String text) throws EncryptionException;
+	protected abstract String encrTwo(int key, String text) throws EncryptionException;
+	protected abstract String encrThree(int key, String text) throws EncryptionException;
+	protected abstract String decrOne(int key, String text) throws DecryptionException;
+	protected abstract String decrTwo(int key, String text) throws DecryptionException;
+	protected abstract String decrThree(int key, String text) throws DecryptionException;
 	protected abstract EncriptionType type();
 	
 	public Strategy(CesarCipher cesarCipher, DESCipher desCipher) {
@@ -27,7 +29,7 @@ public abstract class Strategy {
 		this.desCipher = desCipher;
 	}
 	
-	public String encrypt(int[] key, String text){
+	public String encrypt(int[] key, String text) throws EncryptionException{
 		//
 		if (key.length != 3) {
 			throw new IllegalArgumentException("Devem haver 3 chaves de acordo com sua estratégia");
@@ -46,7 +48,7 @@ public abstract class Strategy {
 		return encrpted2;
 	}
 	
-	public String decrypt(int[] key, String text){
+	public String decrypt(int[] key, String text) throws DecryptionException{
 		//
 		if (key.length != 3) {
 			throw new IllegalArgumentException("Devem haver 3 chaves de acordo com sua estratégia");

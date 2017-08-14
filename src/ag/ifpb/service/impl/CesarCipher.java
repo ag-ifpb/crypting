@@ -1,6 +1,6 @@
-package ag.ifpb.impl;
+package ag.ifpb.service.impl;
 
-import ag.ifpb.AbstractCipher;
+import ag.ifpb.service.AbstractCipher;
 
 public class CesarCipher implements AbstractCipher {
 	char[] chrs = new char[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',	

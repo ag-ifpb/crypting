@@ -1,13 +1,12 @@
-package ag.ifpb;
+package ag.ifpb.service;
 
 import java.util.Random;
 
-public class KeyArrayGenerator {
+public class KeysGenerator {
 	private final int iter;
 	private final int size;
 	private final int kmax;
 	private final int[][] keys;
-	
 	
 	private void fill(){
 		Random random = new Random();
@@ -22,7 +21,7 @@ public class KeyArrayGenerator {
 		}
 	}
 	
-	public KeyArrayGenerator(int iter, int size, int keymax) {
+	public KeysGenerator(int iter, int size, int keymax) {
 		this.iter = iter;
 		this.size = size;
 		this.kmax = keymax;

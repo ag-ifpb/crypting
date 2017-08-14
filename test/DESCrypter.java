@@ -1,21 +1,13 @@
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-
-import ag.ifpb.impl.DESCipher;
+import ag.ifpb.service.impl.DESCipher;
+import ag.ifpb.service.impl.DecryptionException;
+import ag.ifpb.service.impl.EncryptionException;
 
 
 public class DESCrypter {
 	
 	
 
-	public static void main(String[] args) throws NoSuchAlgorithmException, 
-			InvalidKeySpecException, NoSuchPaddingException, 
-			InvalidKeyException, IllegalBlockSizeException, BadPaddingException  {
+	public static void main(String[] args) throws EncryptionException, DecryptionException  {
 		//
 		DESCipher cipher = new DESCipher();
 		String encrypted = cipher.encript(123456, "E ai galerinha! Vamos tentar decriptografar?");

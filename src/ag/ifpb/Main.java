@@ -9,7 +9,14 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-import ag.ifpb.impl.StrategyFactoryImpl;
+import ag.ifpb.service.EncriptionType;
+import ag.ifpb.service.Searcher;
+import ag.ifpb.service.Strategy;
+import ag.ifpb.service.StrategyFactory;
+import ag.ifpb.service.impl.DecryptionException;
+import ag.ifpb.service.impl.EncryptionException;
+import ag.ifpb.service.impl.SearcherImpl;
+import ag.ifpb.service.impl.StrategyFactoryImpl;
 
 public class Main {
 	
@@ -57,7 +64,11 @@ public class Main {
 		StrategyFactory encrypterFactory = new StrategyFactoryImpl();
 		Strategy strategy = encrypterFactory.strategy(EncriptionType.convert(type));
 		//
-		System.out.println("Texto criptografado: " + strategy.encrypt(ks, text));
+		try {
+			System.out.println("Texto criptografado: " + strategy.encrypt(ks, text));
+		} catch (EncryptionException e) {
+			System.out.println("Falha na criptografia: " + e.getMessage());
+		}
 	}
 
 	private static void execDecryptation(String type, int[] ks, String text) {
@@ -66,7 +77,20 @@ public class Main {
 		StrategyFactory encrypterFactory = new StrategyFactoryImpl();
 		Strategy strategy = encrypterFactory.strategy(EncriptionType.convert(type));
 		//
-		System.out.println("Texto decriptografado: " + strategy.decrypt(ks, text));
+		try {
+			System.out.println("Texto decriptografado: " + strategy.decrypt(ks, text));
+		} catch (DecryptionException e) {
+			System.out.println("Falha na decriptografia: " + e.getMessage());
+		}
+	}
+	
+	private static void execSearch(String text){
+		System.out.println("Texto encriptado: " + text);
+		//
+		StrategyFactory strategyFactory = new StrategyFactoryImpl();
+		//
+		Searcher searcher = new SearcherImpl(strategyFactory);
+		searcher.start(text);
 	}
 
 	public static void main(String[] args) throws ParseException {
@@ -78,7 +102,7 @@ public class Main {
 		options.addOption("type", true, "digite uma das opções: ccd, cdc, dcc, ddc, dcd, cdd");
 		options.addOption("ks", true, "lista de chaves de 6 digitos separadas por vírgula e sem espaço. "
 				+ "Exemplo: 999999,111111,000000");
-		options.addOption("search", false, "faz uma pesquisa usando chaves randomicas (não implementado)");
+		options.addOption("search", false, "faz uma pesquisa usando chaves randômicas");
 		//
 		CommandLineParser parser = new DefaultParser();
 		try {
@@ -87,34 +111,48 @@ public class Main {
 			if (cmd.hasOption("h")){
 				HelpFormatter formatter = new HelpFormatter();
 				formatter.printHelp("java -jar target/app.jar <options> text", options);
-				return;
 			}
-			//keys
-			int[] ks;
-			if (cmd.hasOption("ks")){
-				ks = extractKeys(cmd.getOptionValue("ks"));
-			} else {
-				throw new IllegalArgumentException("Chamada com formato inválido. Faltando opção '-ks'");
+			//search
+			else if (cmd.hasOption("search")){
+				//text - TODO reuse
+				String text;
+				if (!cmd.getArgList().isEmpty()){
+					text = extractText( cmd.getArgList().get(0));
+				} else {
+					throw new IllegalArgumentException("Chamada com formato inválido. Faltando argumento 'text'");
+				}
+				//
+				execSearch(text);
 			}
-			//type
-			String type;
-			if (cmd.hasOption("type")){
-				type = extractType(cmd.getOptionValue("type"));
-			} else {
-				throw new IllegalArgumentException("Chamada com formato inválido. Faltando opção '-type'");
-			}
-			//text
-			String text;
-			if (!cmd.getArgList().isEmpty()){
-				text = extractText( cmd.getArgList().get(0));
-			} else {
-				throw new IllegalArgumentException("Chamada com formato inválido. Faltando argumento 'text'");
-			}
-			//dec
-			if (cmd.hasOption("dec") && !cmd.hasOption("enc")){
-				execDecryptation(type, ks, text);
-			} else {
-				execEncryptation(type, ks, text);
+			//enc or dec
+			else {
+				//keys
+				int[] ks;
+				if (cmd.hasOption("ks")){
+					ks = extractKeys(cmd.getOptionValue("ks"));
+				} else {
+					throw new IllegalArgumentException("Chamada com formato inválido. Faltando opção '-ks'");
+				}
+				//type
+				String type;
+				if (cmd.hasOption("type")){
+					type = extractType(cmd.getOptionValue("type"));
+				} else {
+					throw new IllegalArgumentException("Chamada com formato inválido. Faltando opção '-type'");
+				}
+				//text
+				String text;
+				if (!cmd.getArgList().isEmpty()){
+					text = extractText( cmd.getArgList().get(0));
+				} else {
+					throw new IllegalArgumentException("Chamada com formato inválido. Faltando argumento 'text'");
+				}
+				//dec
+				if (cmd.hasOption("dec") && !cmd.hasOption("enc")){
+					execDecryptation(type, ks, text);
+				} else {
+					execEncryptation(type, ks, text);
+				}
 			}
 	    }
 	    catch(ParseException exp ) {

@@ -116,4 +116,8 @@ Texto decriptografado: Maria Amélia
 
 ## Referências
 
-//TODO
+Oracle. Java Cryptography Architecture Standard Algorithm Name Documentation for JDK 8. Visitado em 13/08/2017. Link:
+https://docs.oracle.com/javase/8/docs/technotes/guides/security/StandardNames.html.
+
+Oracle. Java Cryptography Architecture (JCA) Reference Guide. Visitado em 13/08/2017. Link:
+https://docs.oracle.com/javase/8/docs/technotes/guides/security/crypto/CryptoSpec.html
