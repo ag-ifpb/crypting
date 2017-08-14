@@ -61,8 +61,8 @@ public abstract class Searcher{
 	
 	public void start(String text){
 		//setup - pode ser configurável
-		int iterMax = 100000000;
-		int threMax = 10;
+		int iterMax = 10000000;
+		int threMax = 100;
 		//criando um pool de threads fixo 
 		ExecutorService service = Executors.newFixedThreadPool(threMax);
 		//iniciado as tarefas

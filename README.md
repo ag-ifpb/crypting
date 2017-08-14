@@ -49,8 +49,7 @@ usage: java -jar target/app.jar <options> text
  -h            estas informações
  -ks <arg>     lista de chaves de 6 digitos separadas por vírgula e sem
                espaço. Exemplo: 999999,111111,000000
- -search       faz uma pesquisa usando chaves randomicas (não
-               implementado)
+ -search       faz uma pesquisa usando chaves randomicas
  -type <arg>   digite uma das opções: ccd, cdc, dcc, ddc, dcd, cdd
 ```
 
