@@ -114,6 +114,41 @@ O resultado:
 Texto decriptografado: Maria Amélia
 ```
 
+## Exemplo (pesquisa de chaves)
+
+A pesquisa de chave ocorre por busca aleatória cujas chaves DES e Cesar são geradas
+aleatoriamente seguindo as restrições estabelecidas.
+
+Assim sendo, para localizar a chave que descriptografa o texto cifrado
+'mX+BxwwjqS71i6iB6c/+S/kVCSgq+47hf45OsgNulUl=' o algoritmo busca por uma estratégia
+e por um conjunto de chaves. O comando para este caso:
+
+```
+> java -jar target/app.jar -search mX+BxwwjqS71i6iB6c/+S/kVCSgq+47hf45OsgNulUl= >> result.txt
+```
+
+O resultado no arquivo result.txt:
+```
+  ...
+  others 10mi lines
+  ...
+  Estratégia selecionada: DDC
+      --------------------------
+      tipo#2: C
+      chave#2: 19
+      result#2: tE+IeddqxZ71p6pI6j/+Z/rCJZnx+47om45VznUbsBs=
+      -------------------------
+      tipo#1: D
+      chave#1: 654321
+      result#1: XqjIKmzoLxoCgLj+w6ePcw==
+      -------------------------
+      tipo#0: D
+      chave#0: 123456
+      result#0: Maria Amélia
+      -------------------------
+Texto decriptografado: Maria Amélia
+```
+
 ## Referências
 
 Oracle. Java Cryptography Architecture Standard Algorithm Name Documentation for JDK 8. Visitado em 13/08/2017. Link:
